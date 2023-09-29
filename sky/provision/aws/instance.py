@@ -314,7 +314,8 @@ def cleanup_ports(
     backoff = common_utils.Backoff()
     for _ in range(MAX_ATTEMPTS):
         try:
-            sg.delete()
+            # sg.delete()
+            pass
         except aws.botocore_exceptions().ClientError as e:
             if _DEPENDENCY_VIOLATION_PATTERN.findall(str(e)):
                 logger.debug(

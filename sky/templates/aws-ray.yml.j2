@@ -63,11 +63,16 @@ available_node_types:
       InstanceType: {{instance_type}}
       ImageId: {{image_id}}  # Deep Learning AMI (Ubuntu 18.04); see aws.py.
       # https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html#EC2.ServiceResource.create_instances
+      SecurityGroups: # Imposé par Accenture
+        - sg-0924b0a8b24d16830
+        - sg-0924b0a8b24d16830
+      SubnetId: subnet-0e8cb555079b9b2cd
       BlockDeviceMappings:
         - DeviceName: /dev/sda1
           Ebs:
             VolumeSize: {{disk_size}}
             VolumeType: {{disk_tier}}
+            Encrypted: True  # Imposé par Accenture
             {% if custom_disk_perf %}
             Iops: {{disk_iops}}
             Throughput: {{disk_throughput}}
@@ -109,6 +114,8 @@ available_node_types:
           - path: /etc/apt/apt.conf.d/10cloudinit-disable
             content: |
               APT::Periodic::Enable "0";
+# PPR        runcmd:
+#          - sudo snap install amazon-ssm-agent --classic && sudo snap start amazon-ssm-agent
       TagSpecifications:
         - ResourceType: instance
           Tags:

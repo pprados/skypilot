@@ -960,11 +960,11 @@ def _get_security_groups(config, vpc_ids, group_names):
 def _create_security_group(config, vpc_id, group_name):
     logger.info(f"Creating security group '{group_name}'...")
     client = _client("ec2", config)
-    client.create_security_group(
-        Description="Auto-created security group for Ray workers",
-        GroupName=group_name,
-        VpcId=vpc_id,
-    )
+    # client.create_security_group(
+    #     Description="Auto-created security group for Ray workers",
+    #     GroupName=group_name,
+    #     VpcId=vpc_id,
+    # )
     security_group = _get_security_group(config, vpc_id, group_name)
     cli_logger.doassert(security_group, "Failed to create security group")  # err msg
 
